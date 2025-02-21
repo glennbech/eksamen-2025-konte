@@ -6,16 +6,16 @@ terraform {
     }
   }
 }
-resource "statuscake_uptime_check" "example" {
+resource "statuscake_uptime_check" "vg" {
   check_interval = 300
   confirmation   = 3
-  name           = "example-site"
+  name           = "VG Website Monitoring"
   trigger_rate   = 10
 
   http_check {
     timeout      = 20
     validate_ssl = true
-    status_codes = ["200"]
+    status_codes = ["200","301","302"]
   }
 
   monitored_resource {
@@ -25,6 +25,6 @@ resource "statuscake_uptime_check" "example" {
   tags = ["production"]
 }
 
-output "example_com_uptime_check_id" {
-  value = statuscake_uptime_check.example.id
+output "vg_uptime_check_id" {
+  value = statuscake_uptime_check.vg.id
 }
