@@ -8,7 +8,7 @@ terraform {
 }
 resource "statuscake_uptime_check" "vg" {
   check_interval = 60
-  confirmation   = 3
+  confirmation   = 1
   name           = "VG Website Monitoring"
   trigger_rate   = 10
 
@@ -16,6 +16,7 @@ resource "statuscake_uptime_check" "vg" {
     timeout      = 20
     validate_ssl = false
     status_codes = ["200","301","302"]
+    follow_redirects = true
   }
 
   monitored_resource {
