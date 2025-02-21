@@ -7,7 +7,7 @@ terraform {
   }
 }
 resource "statuscake_uptime_check" "vg" {
-  check_interval = 300
+  check_interval = 60
   confirmation   = 3
   name           = "VG Website Monitoring"
   trigger_rate   = 10
@@ -19,7 +19,7 @@ resource "statuscake_uptime_check" "vg" {
   }
 
   monitored_resource {
-    address = "https://www.example.com"
+    address = "https://www.vg.no/"
   }
 
   tags = ["production"]
