@@ -14,7 +14,7 @@ resource "statuscake_uptime_check" "vg" {
 
   http_check {
     timeout      = 20
-    validate_ssl = true
+    validate_ssl = false
     status_codes = ["200","301","302"]
   }
 
