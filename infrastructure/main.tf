@@ -8,7 +8,7 @@ terraform {
 }
 resource "statuscake_contact_group" "ops_team" {
   name    = var.contact_group_name
-  emails  = [var.contact_group_email]
+  email_addresses  = [var.contact_group_email]
 }
 resource "statuscake_uptime_check" "vg" {
   check_interval = var.check_interval
