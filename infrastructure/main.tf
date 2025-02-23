@@ -6,30 +6,28 @@ terraform {
     }
   }
 }
+
 resource "statuscake_contact_group" "ops_team" {
-  name    = var.contact_group_name
-  email_addresses  = [var.contact_group_email]
+  name            = var.contact_group_name
+  email_addresses = [var.contact_group_email]
 }
-resource "statuscake_uptime_check" "vg" {
+
+module "vg_monitor" {
+  source = "./modules/statuscake_monitor"
+  site_name = "VG Website Monitoring"
+  site_url = "https://www.vg.no/"
   check_interval = var.check_interval
-  confirmation   = 1
-  name           = "VG Website Monitoring"
-  trigger_rate   = var.trigger_rate
-  contact_groups = [statuscake_contact_group.ops_team.id]
-  http_check {
-    timeout      = var.timeout
-    validate_ssl = false
-    status_codes = ["200","301","302"]
-    follow_redirects = true
-  }
-
-  monitored_resource {
-    address = "https://www.vg.no/"
-  }
-
-  tags = ["production"]
+  trigger_rate = var.trigger_rate
+  timeout = var.timeout
+  contact_group_id = statuscake_contact_group.ops_team.id
 }
 
-output "vg_uptime_check_id" {
-  value = statuscake_uptime_check.vg.id
+module "xkcd_monitor" {
+  source = "./modules/statuscake_monitor"
+  site_name = "xkcd monitor"
+  site_url = "https://xkcd.com/"
+  check_interval = var.check_interval
+  trigger_rate = var.trigger_rate
+  timeout = var.timeout
+  contact_group_id = statuscake_contact_group.ops_team.id
 }
