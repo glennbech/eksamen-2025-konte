@@ -7,11 +7,13 @@ variable "statuscake_api_token" {
 variable "contact_group_name" {
   description = "Navnet på contact group"
   type = string
+  default = "OLE SUPPORT"
 }
 
 variable "contact_group_email" {
   description = "E-postadresse for contact group"
   type = string
+  default = "ole.magnus.letrud@gmail.com"
 }
 
 variable "check_interval" {
