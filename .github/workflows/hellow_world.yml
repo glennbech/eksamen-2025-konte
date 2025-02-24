@@ -34,6 +34,10 @@ jobs:
         run: terraform init
         working-directory: ${{ env.TF_DIR }}
 
+      - name: Get Terraform Modules
+        run: terraform get
+        working-directory: ${{ env.TF_DIR }}
+
       - name: Terraform Plan
         run: terraform plan -var="statuscake_api_token=${{ env.STATUSCAKE_API_TOKEN }}"
         working-directory: ${{ env.TF_DIR }}
@@ -48,7 +52,7 @@ jobs:
         run: |
           git config --global user.email "github-actions@github.com"
           git config --global user.name "GitHub Actions"
-          git pull
+          git pull --rebase --autostash
           git add $TF_DIR/$TF_STATE_FILE || echo "No state file to add"
           git commit -m "Update Terraform state [skip ci]" || echo "No changes to commit"
           git push
